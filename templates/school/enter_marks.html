@@ -1,0 +1,48 @@
+{% extends 'school/teacherbase.html' %}
+
+{% block content %}
+  <style>
+    .centered-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh; /* This centers vertically within the viewport */
+    }
+
+    .centered-form {
+      text-align: center;
+      width: 100%; /* Optional: Make the form width match the container */
+      max-width: 400px; /* Set a maximum width for the form */
+      border: 2px solid #ccc; /* Add a border for the frame */
+      padding: 20px; /* Add some padding inside the frame */
+      border-radius: 10px; /* Add rounded corners */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+    }
+
+    /* Style the button */
+    .centered-form button {
+      background-color: #2B9AD8; /* Button background color */
+      color: white; /* Button text color */
+      padding: 10px 20px; /* Button padding */
+      border: none; /* Remove button border */
+      border-radius: 5px; /* Add rounded corners */
+      cursor: pointer; /* Add a pointer cursor on hover */
+    }
+
+    /* Style the button on hover */
+    .centered-form button:hover {
+      background-color: #24A3BF; /* Change background color on hover */
+    }
+  </style>
+
+  <div class="centered-container">
+    <div class="centered-form">
+      <h2>Enter Marks for Students</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Marks</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'school/teacherbase.html' %}
+
+{% block content %}
+  <style>
+    .centered-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh; /* Center vertically within the viewport */
+    }
+
+    .centered-content {
+      text-align: center;
+      width: 100%; /* Optional: Adjust the content width */
+      max-width: 400px; /* Set a maximum width for the content */
+      border: 2px solid #ccc; /* Add a border for the frame */
+      padding: 20px; /* Add padding inside the frame */
+      border-radius: 10px; /* Add rounded corners */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+    }
+
+    /* Add a background color to the "Welcome" heading */
+    .welcome-heading {
+      /* Choose your desired background color */
+      padding: 10px; /* Add padding to the heading */
+      border-radius: 5px;
+      /* Add rounded corners to the heading */
+    }
+  </style>
+
+  <div class="centered-container">
+    <div class="centered-content">
+      <h2 class="welcome-heading">Welcome, {{ teacher.user.first_name }}!</h2>
+      <p>Your Assigned Class: {{ assigned_class }}</p>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!-- submit_marks.html -->
+{% extends 'base_template.html' %}
+
+{% block content %}
+  <h1>Submit Marks</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!-- view_all_students_marks.html -->
+{% extends 'school/studentbase.html' %}
+
+{% block content %}
+  <h1>All Students Marks</h1>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Physics Marks</th>
+          <th>Chemistry Marks</th>
+          <th>Maths Marks</th>
+          <th>English Marks</th>
+          <th>Computer Marks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for marks in all_students_marks %}
+          <tr>
+            <td>{{ marks.StudentName }}</td>
+            <td>{{ marks.PhysicsMarks }}</td>
+            <td>{{ marks.ChemistryMarks }}</td>
+            <td>{{ marks.MathsMarks }}</td>
+            <td>{{ marks.EnglishMarks }}</td>
+            <td>{{ marks.ComputerMarks }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
