@@ -36,6 +36,9 @@ SQLite
   
 
 ![s](https://github.com/Dolma455/School-Management-System-Django/assets/119863448/3e999a45-d584-46ef-a044-0602fd9907fc)
+![dashboard](https://github.com/Dolma455/School-Management-System-Django/assets/119863448/ef2de256-6672-402c-bbdb-b23f09382ce2)
+
+
 
   
 
