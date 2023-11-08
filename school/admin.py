@@ -19,4 +19,4 @@ admin.site.register(Notice, NoticeAdmin)
 
 
 
-admin.site.register(Marks)
+

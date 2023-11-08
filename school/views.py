@@ -133,7 +133,7 @@ def afterlogin_view(request):
 
 
 
-#for dashboard of admin
+#for dashboard of adminnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
 
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
@@ -178,7 +178,7 @@ def admin_dashboard_view(request):
 
 
 
-#for teacher section by admin
+#for teacher sectionnnnnnnn by admin
 
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
@@ -291,7 +291,6 @@ def admin_view_teacher_salary_view(request):
 
 
 #for student by admin
-
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_student_view(request):
@@ -668,52 +667,59 @@ def teacher_view_assigned_class(request):
     return render(request, 'school/teacher_view_assigned_class.html', {'teacher': teacher, 'assigned_class': assigned_class})
 
 
-from django.shortcuts import render, redirect
-from .forms import MarksForm
-from .models import StudentExtra, Marks
+from .models import StudentExtra
+from .forms import ClassAttendanceForm
+from .models import Attendance
 
-def enter_marks(request):
-    if request.method == 'POST':
-        form = MarksForm(request.POST)
-        if form.is_valid():
-            student = form.cleaned_data['student']
-
-            # Create a new Marks instance and set the student
-            marks = form.save(commit=False)
-            marks.student = student
-            marks.save()
-
-            # Redirect to a success page or display a success message
-            return redirect('teacher-dashboard')  # Replace 'success-page' with your desired URL name
-    else:
-        form = MarksForm()
-
-    return render(request, 'school/enter_marks.html', {'form': form})
-
-
-from django.shortcuts import render, redirect
-from school.models import StudentExtra, Attendance ,class_teacher_required # Import the Attendance model
-
-@login_required
-@class_teacher_required
 def take_attendance(request):
-    teacher = request.user.teacherextra
+    teacher = TeacherExtra.objects.get(user=request.user)
     assigned_class = teacher.assigned_class
+    students = StudentExtra.objects.filter(cl=assigned_class)
 
     if request.method == 'POST':
-        attendance_date = request.POST.get('attendance_date')
-        for student in StudentExtra.objects.filter(cl=assigned_class):
-            attendance_status = request.POST.get(f'attendance_{student.Roll}')
-            attendance_instance = Attendance(
-                roll=student.roll,  # Assuming you have a roll field in StudentExtra model
-                date=attendance_date,
-                cl=assigned_class,
-                present_status=attendance_status
-            )
-            attendance_instance.save()
-
-        return redirect('teacher-attendance')
+        form = ClassAttendanceForm(request.POST, students=students)
+        if form.is_valid():
+            for student in students:
+                present_status = form.cleaned_data.get(f'attendance_{student.roll}')
+                Attendance.objects.create(
+                    roll=student.roll,
+                    date=form.cleaned_data['date'],
+                    cl=assigned_class,
+                    present_status=present_status
+                )
+            return redirect('teacher-dashboard')
     else:
-        students = StudentExtra.objects.filter(cl=assigned_class)
-        context = {'students': students, 'assigned_class': assigned_class}
-        return render(request, 'school/take_attendance.html', context)
+        form = ClassAttendanceForm(students=students)
+
+    return render(request, 'school/teacher_take_attendance.html', {'form': form, 'students': students})
+
+from django.shortcuts import render
+from .forms import AskDateForm
+from .models import Attendance
+
+def view_attendance_class(request):
+    if request.method == 'POST':
+        form = AskDateForm(request.POST)
+        if form.is_valid():
+            selected_date = form.cleaned_data['date']
+
+            # Query attendance records for the selected date
+            attendance_records = Attendance.objects.filter(date=selected_date)
+
+            # Prepare data for the template
+            data = []
+            for record in attendance_records:
+                data.append({
+                    'roll': record.roll,
+                    'date': record.date,
+                    'class': record.cl,  # Replace with the actual field name for the class's name
+                    'present_status': record.present_status,
+                })
+
+            return render(request, 'school/view_attendance_class.html', {'attendance': data, 'form': form})
+    else:
+        form = AskDateForm()
+        return render(request, 'school/view_attendance_class.html', {'form': form})
+    
+
+

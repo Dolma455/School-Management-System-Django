@@ -1,5 +1,9 @@
 {% extends 'school/teacherbase.html' %}
 {% load widget_tweaks %}
+
+
+
+
 {% block content %}
 
 <head>
@@ -45,24 +49,26 @@
 
 </head>
 
-<!------ notice page for  by admin(sumit)  ---------->
+<!------ notice page by admin(Dolma)  ---------->
 <form method="post">
   {% csrf_token %}
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Write Something</p>
+        <p>Announce Something</p>
       </div>
+
       <div class="form-content">
         <div class="row">
           <div class="col-md-12">
-            <div class="form-group" id="xyz">
+            <div class="form-group">
               {% render_field form.message class="form-control" placeholder="Write Your Message Here" %}
             </div>
             <div class="form-group">
               {% render_field form.by type="hidden"  class="form-control" placeholder="Your Name" %}
             </div>
           </div>
+
         </div>
         <button type="submit" class="btnSubmit">Submit</button>
       </div>
@@ -71,3 +77,4 @@
 
 </form>
 {% endblock content %}
+

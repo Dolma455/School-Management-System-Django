@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 classes=[('one','one'),('two','two'),('three','three'),
 ('four','four'),('five','five'),('six','six'),('seven','seven'),('eight','eight'),('nine','nine'),('ten','ten')]
 
+class Class(models.Model):
+    class_name = models.CharField(max_length=200)
+    # Your other class fields here
+    
 class TeacherExtra(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     salary = models.PositiveIntegerField(null=False)
@@ -12,6 +16,7 @@ class TeacherExtra(models.Model):
     mobile = models.CharField(max_length=40)
     status=models.BooleanField(default=False)
     assigned_class = models.CharField(max_length=10, choices=classes, blank=True)
+    # assigned_class = models.ForeignKey(Class, null=True, on_delete=models.SET_NULL)
     def __str__(self):
         return self.user.first_name
     @property
@@ -79,18 +84,9 @@ def class_teacher_required(view_func):
             return redirect('teacher_dashboard')  # Redirect if not a class teacher
     return _wrapped_view
 
-from school.models import StudentExtra
 
 
-class Marks(models.Model):
-    student = models.ForeignKey(StudentExtra, on_delete=models.CASCADE)
-    science = models.DecimalField(max_digits=5, decimal_places=2)
-    social = models.DecimalField(max_digits=5, decimal_places=2)
-    math = models.DecimalField(max_digits=5, decimal_places=2)
-    english = models.DecimalField(max_digits=5, decimal_places=2)
-    nepali = models.DecimalField(max_digits=5, decimal_places=2)
 
 
-    def __str__(self):
-        return f"{self.student.get_name()} - {self.subject}"
+
 

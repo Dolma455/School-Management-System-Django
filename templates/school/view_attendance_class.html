@@ -1,0 +1,33 @@
+{% extends 'school/teacherbase.html' %}
+{% block content %}
+
+<h1>View Attendance by Date</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">View Attendance</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Roll</th>
+            <th>Date</th>
+            <th>Class</th>
+            <th>Present Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in attendance %}
+        <tr>
+            <td>{{ record.roll }}</td>
+            <td>{{ record.date }}</td>
+            <td>{{ record.class }}</td>
+            <td>{{ record.present_status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

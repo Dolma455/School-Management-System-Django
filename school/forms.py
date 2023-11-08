@@ -45,6 +45,18 @@ class AskDateForm(forms.Form):
     date=forms.DateField()
 
 
+# attendance by class teacher
+from django import forms
+
+class ClassAttendanceForm(forms.Form):
+    date = forms.DateField(widget=forms.SelectDateWidget)
+    
+    def __init__(self, *args, **kwargs):
+        students = kwargs.pop('students')
+        super(ClassAttendanceForm, self).__init__(*args, **kwargs)
+        for student in students:
+            self.fields[f'attendance_{student.roll}'] = forms.BooleanField(required=False, label=str(student.user))
+
 #for notice related form
 class NoticeForm(forms.ModelForm):
     class Meta:
@@ -82,13 +94,4 @@ class AssignClassTeacherForm(forms.Form):
     teacher = forms.ModelChoiceField(queryset=TeacherExtra.objects.all(), label='Select Teacher')
     assigned_class = forms.ChoiceField(choices=classes, label='Select Class')
 
-
-from .models import StudentExtra, Marks
-
-class MarksForm(forms.ModelForm):
-    student = forms.ModelChoiceField(queryset=StudentExtra.objects.all(), label="Student Name")
-    
-    class Meta:
-        model = Marks
-        fields = ['student', 'science', 'social', 'math', 'english', 'nepali']
 
