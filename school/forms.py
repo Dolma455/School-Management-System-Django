@@ -55,8 +55,12 @@ class ClassAttendanceForm(forms.Form):
         students = kwargs.pop('students')
         super(ClassAttendanceForm, self).__init__(*args, **kwargs)
         for student in students:
-            self.fields[f'attendance_{student.roll}'] = forms.BooleanField(required=False, label=str(student.user))
-
+            self.fields[f'attendance_{student.roll}'] = forms.ChoiceField(
+                choices=[('Present', 'Present'), ('Absent', 'Absent')],
+                widget=forms.Select,
+                required=False,
+                label=f'{student.user.first_name} {student.user.last_name}'
+            )
 #for notice related form
 class NoticeForm(forms.ModelForm):
     class Meta:

@@ -1,33 +1,101 @@
 {% extends 'school/teacherbase.html' %}
+{% load widget_tweaks %}
 {% block content %}
 
-<h1>View Attendance by Date</h1>
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">View Attendance</button>
-</form>
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+    .note {
+      text-align: center;
+      height: 80px;
+      background: #448CCC;
+      color: #fff;
+      font-weight: bold;
+      line-height: 80px;
+    }
+    .form-content {
+      padding: 5%;
+      border: 1px solid #ced4da;
+      margin-bottom: 2%;
+    }
+    .form-control {
+      border-radius: 1.5rem;
+    }
+    .btnSubmit {
+      border: none;
+      border-radius: 2rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #448CCC;
+      color: #fff;
+    }
+  </style>
+</head>
 
-<table>
-    <thead>
-        <tr>
-            <th>Roll</th>
-            <th>Date</th>
-            <th>Class</th>
-            <th>Present Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for record in attendance %}
-        <tr>
-            <td>{{ record.roll }}</td>
-            <td>{{ record.date }}</td>
-            <td>{{ record.class }}</td>
-            <td>{{ record.present_status }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+  {% if not attendance %}
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title center-text">Search attendance by date</h2>
+      </div>
+      <div class="panel-body">
+        <form method="post" class="form-horizontal">
+          {% csrf_token %} 
+          <div class="form-content">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  {{ form.date|add_class:"form-control"|attr:"placeholder:Enter date mm/dd/yyyy" }}
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btnSubmit">View Attendance</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if attendance %}
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title">Attendance</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+            <tr>
+              
+              <th>Roll No.</th> 
+              <th>Date</th>
+              <th>Present Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in attendance %}
+            <tr>
+             
+              <td>{{ record.roll }}</td>
+              <td>{{ record.date }}</td>
+              <td>{{ record.present_status }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
 
 {% endblock content %}

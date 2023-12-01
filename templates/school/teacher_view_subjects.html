@@ -1,19 +1,63 @@
 {% extends 'school/teacherbase.html' %}
 
-
 {% block content %}
-<h2>**Subjects**</h2>
-<ul>
-    <li>Science</li> 
-    <li>Social</li>
-    <li>Math</li> 
-    <li>English</li>
-    <li>Math</li>
-</ul>
-  <h3>Your Assigned Subject for all class</h3>
-  <ul>
-    {% for subject in subjects %}
-      <li>{{ subject.name }}</li>
-    {% endfor %}
-  </ul>
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h2, h3 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+    .highlight {
+      color: #810080;  
+  }
+  .center-text {
+    text-align: center;
+  }
+  </style>
+</head>
+
+<div class="container">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title">Subjects</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>subjects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Science</td></tr>
+            <tr><td>Social</td></tr>
+            <tr><td>Math</td></tr>
+            <tr><td>English</td></tr>
+            <tr><td>Nepali</td></tr>
+            <tr><td>Computer</td></tr>
+            <tr><td>Health and Education</td></tr>
+          </tbody>
+        </table>
+        <h3 class="highlight ">Your Assigned Subject for all class</h3>
+        <ul>
+          {% for subject in subjects %}
+            <h4 class="highlight center-text">{{ subject.name }}</h4>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

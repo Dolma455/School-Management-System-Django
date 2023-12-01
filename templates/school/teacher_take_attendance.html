@@ -1,8 +1,64 @@
-{% extends 'school/teacherbase.html' %} {% block content %}
-<form method="post">
-  {% csrf_token %} {% for field in form %}
-  <div>{{ field.label_tag }} {{ field }}</div>
-  {% endfor %}
-  <button type="submit">Submit</button>
-</form>
+{% extends 'school/teacherbase.html' %}
+
+{% block content %}
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    .row {
+      margin: 100px;
+    }
+
+    form {
+      width: 50%;
+      margin: auto;
+      padding: 20px;
+    }
+
+    button {
+      background-color: #448CCC;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4rem;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title">Attendance</h2>
+      </div>
+      <div class="panel-body">
+        <form method="post">
+          {% csrf_token %} 
+          <table class="table">
+            {% for field in form %}
+              <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
