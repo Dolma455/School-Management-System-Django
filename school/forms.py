@@ -85,6 +85,8 @@ class AssignTeacherToSubjectForm(forms.Form):
         ('math', 'Math'),
         ('english', 'English'),
         ('nepali', 'Nepali'),
+        ('computer', 'Computer'),
+        ('Health and Education', 'Health and Education'),
     ]
 
     subject = forms.ChoiceField(choices=predefined_subjects)

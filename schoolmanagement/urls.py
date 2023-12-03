@@ -93,6 +93,7 @@ urlpatterns = [
     path('teacher-view-assigned-class/', views.teacher_view_assigned_class, name='teacher_view_assigned_class'),
     path('take-attendance/', views.take_attendance, name='take_attendance'),
     path('class-student-view-attendance/', views.view_attendance_class, name='view_attendance_class'),
+    path('teacher-take-attendance/', views.take_attendance, name='teacher-take-attendance'),
  
 
 

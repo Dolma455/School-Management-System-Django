@@ -30,7 +30,7 @@ class TeacherExtra(models.Model):
 
 class StudentExtra(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    roll = models.CharField(max_length=10)
+    roll = models.CharField(max_length=10,unique=True)
     mobile = models.CharField(max_length=40,null=True)
     fee=models.PositiveIntegerField(null=True)
     cl= models.CharField(max_length=10,choices=classes,default='one')
