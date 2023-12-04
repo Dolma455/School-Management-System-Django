@@ -101,3 +101,7 @@ class AssignClassTeacherForm(forms.Form):
     assigned_class = forms.ChoiceField(choices=classes, label='Select Class')
 
 
+
+class AskMonthForm(forms.Form):
+    year = forms.IntegerField(min_value=2000, max_value=2099)
+    month = forms.IntegerField(min_value=1, max_value=12)

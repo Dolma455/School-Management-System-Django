@@ -437,20 +437,30 @@ def admin_take_attendance_view(request,cl):
 
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
-def admin_view_attendance_view(request,cl):
-    form=forms.AskDateForm()
-    if request.method=='POST':
-        form=forms.AskDateForm(request.POST)
+def admin_view_attendance_view(request, cl):
+    form = forms.AskMonthForm()  # Instantiate the form
+    if request.method == 'POST':
+        form = forms.AskMonthForm(request.POST)
         if form.is_valid():
-            date=form.cleaned_data['date']
-            attendancedata=models.Attendance.objects.all().filter(date=date,cl=cl)
-            studentdata=models.StudentExtra.objects.all().filter(cl=cl)
-            mylist=zip(attendancedata,studentdata)
-            return render(request,'school/admin_view_attendance_page.html',{'cl':cl,'mylist':mylist,'date':date})
-        else:
-            print('form invalid')
-    return render(request,'school/admin_view_attendance_ask_date.html',{'cl':cl,'form':form})
+            year = form.cleaned_data['year']
+            month = form.cleaned_data['month']
 
+            # Get all students in the class
+            students = models.StudentExtra.objects.filter(cl=cl)
+
+            # Prepare data for the template
+            data = []
+            for student in students:
+                # Get the attendance records for the student for the specified month
+                attendance_records = models.Attendance.objects.filter(date__year=year, date__month=month, cl=cl, roll=student.roll)
+
+                data.append({
+                    'student': student,
+                    'attendance_records': attendance_records,
+                })
+
+            return render(request, 'school/admin_view_attendance_page.html', {'cl': cl, 'data': data, 'year': year, 'month': month})
+    return render(request, 'school/admin_view_attendance_ask_month.html', {'cl': cl, 'form': form})
 
 #fee related view by admin
 @login_required(login_url='adminlogin')
