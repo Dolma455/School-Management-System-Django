@@ -705,8 +705,8 @@ def take_attendance(request):
             return redirect('teacher-dashboard')
     else:
         form = ClassAttendanceForm(students=students)
-
     return render(request, 'school/teacher_take_attendance.html', {'form': form, 'students': students})
+    
 from django.shortcuts import render
 from .forms import AskDateForm
 from .models import Attendance
