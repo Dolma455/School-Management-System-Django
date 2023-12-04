@@ -689,20 +689,24 @@ def take_attendance(request):
     if request.method == 'POST':
         form = ClassAttendanceForm(request.POST, students=students)
         if form.is_valid():
+            attendance_date = form.cleaned_data['date']
             for student in students:
                 present_status = form.cleaned_data.get(f'attendance_{student.roll}')
-                Attendance.objects.create(
-                    roll=student.roll,
-                    date=form.cleaned_data['date'],
-                    cl=assigned_class,
-                    present_status=present_status
-                )
+                # Check if an attendance record already exists for this student on this date
+                existing_record = Attendance.objects.filter(roll=student.roll, date=attendance_date).first()
+                if existing_record is None:
+                    # If no record exists, create a new one
+                    Attendance.objects.create(
+                        roll=student.roll,
+                        date=attendance_date,
+                        cl=assigned_class,
+                        present_status=present_status
+                    )
             return redirect('teacher-dashboard')
     else:
         form = ClassAttendanceForm(students=students)
 
     return render(request, 'school/teacher_take_attendance.html', {'form': form, 'students': students})
-
 from django.shortcuts import render
 from .forms import AskDateForm
 from .models import Attendance
