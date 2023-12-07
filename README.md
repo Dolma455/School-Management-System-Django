@@ -5,7 +5,6 @@ A school management system using Django is a web-based application built with th
 -  Student Panel
 -  Admin Panel
 -  Teacher Panel
--  Marks Entry
 -  Manage Attendance.
 -  Manage Fees
 -  Manage Requests
