@@ -12,7 +12,7 @@ A school management system using Django is a web-based application built with th
 -  Assign Class Teacher
 -  Assign Subject Teacher
 
-# Technologies used
+# Technologies Used
 - Python with Django Framework
 
 # Database
@@ -32,8 +32,19 @@ SQLite
 # output
 
 # Admin Panel
-  
-https://github.com/Dolma455/School-Management-System-Django/assets/119863448/36376599-5e2f-47ef-9b64-99e46add810c
+
+https://github.com/Dolma455/School-Management-System-Django/assets/119863448/69a7cf62-f1ad-4da9-bb00-d92b3df160f9
+
+# Teacher Panel
+
+https://github.com/Dolma455/School-Management-System-Django/assets/119863448/06e3ca0b-ca4c-4b6c-8e5f-5dceb4236d2d
+
+# Student Panel
+
+https://github.com/Dolma455/School-Management-System-Django/assets/119863448/76b21488-37b1-4c06-acb6-fdc56bcc6681
+
+
+
 
 
 
