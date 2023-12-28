@@ -29,9 +29,10 @@ SQLite
 - Go to URL “http://127.0.0.1/[ PORT_NUMBER ]/“
 - For the Admin Panel credentials, create one with a superuser.
 
-  #output
+# output
 
-  #Admin Panel
+# Admin Panel
+  
 https://github.com/Dolma455/School-Management-System-Django/assets/119863448/36376599-5e2f-47ef-9b64-99e46add810c
 
 
